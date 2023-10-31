@@ -1,0 +1,32 @@
+[
+    {
+        "question": "Which Team won the FiFa-WorldCup 2022?",
+        "options": [
+            "France",
+            "England",
+            "Argentina",
+            "Spain"
+        ],
+        "correctAnswer": "Argentina"
+    },
+    {
+        "question": "What country has the most islands in the world?",
+        "options": [
+            "Switzerland",
+            "Mexico",
+            "Norway",
+            "Sweden"
+        ],
+        "correctAnswer": "Sweden"
+    },
+    {
+        "question": "How many keys does a classic piano have?",
+        "options": [
+            "80",
+            "88",
+            "85",
+            "82"
+        ],
+        "correctAnswer": "88"
+    }
+]
