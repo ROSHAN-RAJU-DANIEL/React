@@ -18,13 +18,15 @@ function App() {
     if (selectedAnswer === correctAnswer) {
       setScore(score + 1);
     }
+  };
 
+  const handleNext = () => {
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
       setStep("results");
     }
-  };
+  }
 
   const handleRestartQuiz = () => {
     setStep("home");
@@ -39,6 +41,7 @@ function App() {
         <Questions
           question={questions[currentQuestion]}
           onAnswerSubmit={handleAnswerSubmit}
+          Next={handleNext}
           isLastQuestion={currentQuestion === questions.length - 1}
         />
       )}

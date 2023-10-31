@@ -1,6 +1,6 @@
 import React from "react";
 
-function Results({ score, totalQuestions, onRestartQuiz }) {
+const Results = ({ score, totalQuestions, onRestartQuiz }) => {
     return (
         <div className="results">
             <h2>Quiz Results</h2>

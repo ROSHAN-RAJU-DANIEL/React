@@ -1,11 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-function Question({ question, onAnswerSubmit, isLastQuestion }) {
+const Question = ({ question, onAnswerSubmit, Next, isLastQuestion }) => {
     const [selectedAnswer, setSelectedAnswer] = useState("");
+    const [submitted, setSubmitted] = useState(false);
 
     const handleOptionSelect = (option) => {
         setSelectedAnswer(option);
     };
+
+    const submitAnswer = () => {
+        setSubmitted(true);
+        onAnswerSubmit(selectedAnswer);
+    };
+
+    useEffect(() => {
+        setSubmitted(false);
+    }, [question]);
 
     return (
         <div className="question">
@@ -19,13 +29,28 @@ function Question({ question, onAnswerSubmit, isLastQuestion }) {
                                 value={option}
                                 checked={selectedAnswer === option}
                                 onChange={() => handleOptionSelect(option)}
+                                disabled={submitted}
                             />
-                            {option}
+                            <span
+                                style={{
+                                    color:
+                                        submitted && option === question.correctAnswer
+                                            ? "green"
+                                            : submitted && selectedAnswer === option
+                                                ? "red"
+                                                : "inherit",
+                                }}
+                            >
+                                {option}
+                            </span>
                         </label>
                     </li>
                 ))}
             </ul>
-            <button onClick={() => onAnswerSubmit(selectedAnswer)}>
+            <button onClick={submitAnswer} disabled={submitted}>
+                Submit
+            </button>
+            <button onClick={() => Next()}>
                 {isLastQuestion ? "See Results" : "Next"}
             </button>
         </div>
