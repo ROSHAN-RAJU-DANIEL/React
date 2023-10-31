@@ -4,11 +4,12 @@ import "./index.css";
 
 const CountryCapital = ({ data }) => {
     const shuffleArray = (array) => {
-        for (let i = array.length - 1; i > 0; i--) {
+        const newArray = [...array];
+        for (let i = newArray.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
+            [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
         }
-        return array;
+        return newArray;
     }
 
     const createArray = (data) => {
@@ -74,29 +75,25 @@ const CountryCapital = ({ data }) => {
         }
     };
 
-    const renderGameBoard = () => {
-        if (nameList.length === 0) {
-            return <div>Congratulations, you won!</div>;
-        } else {
-            return (
-                <div className="button-container">
-                    {nameList.map((item) => (
-                        <button
-                            key={item.id}
-                            className={item.selected ? (item.wrongMatched ? "button-red" : "button-blue") : ""}
-                            onClick={() => handleClick(item.id)}
-                        >
-                            {item.name}
-                        </button>
-                    ))}
-                </div>
-            );
-        }
-    };
+    if (Object.keys(data).length === 0) {
+        return <div className="no-data-message">No data available</div>;
+    }
 
     return (
-        <div>
-            {renderGameBoard()}
+        <div className="button-container">
+            {nameList.length === 0 ? (
+                <div>Congratulations, you won!</div>
+            ) : (
+                nameList.map((item) => (
+                    <button
+                        key={item.id}
+                        className={item.selected ? (item.wrongMatched ? "button-red" : "button-blue") : ""}
+                        onClick={() => handleClick(item.id)}
+                    >
+                        {item.name}
+                    </button>
+                ))
+            )}
         </div>
     );
 };
