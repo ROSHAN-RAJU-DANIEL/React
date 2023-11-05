@@ -18,3 +18,10 @@ export const updateNote = (updatedNote) => {
         mockNotes[index] = { ...updatedNote };
     }
 };
+
+export const deleteNote = (noteId) => {
+    const index = mockNotes.findIndex((note) => note.id === noteId);
+    if (index !== -1) {
+        mockNotes.splice(index, 1);
+    }
+};

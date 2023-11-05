@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import NoteDisplay from './components/NoteDisplay';
 import Sidebar from './components/Sidebar';
-import { createNote, getNotes, updateNote } from './data/NoteService';
+import { createNote, getNotes, updateNote, deleteNote } from './data/NoteService';
 
 function App() {
   const [notes, setNotes] = useState([]);
@@ -24,6 +24,12 @@ function App() {
     setSelectedNote(null);
   };
 
+  const handleDeleteNote = (noteId) => {
+    deleteNote(noteId)
+    setNotes(getNotes());
+    setSelectedNote(null);
+  };
+
   const handleCancel = () => {
     setCreatingNote(false);
     setSelectedNote(null);
@@ -41,6 +47,7 @@ function App() {
         creatingNote={creatingNote}
         onCreateNote={handleCreateNote}
         onEditNote={handleEditNote}
+        onDeleteNote={handleDeleteNote}
         onCancel={handleCancel}
       />
     </div>

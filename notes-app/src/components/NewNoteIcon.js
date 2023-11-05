@@ -3,11 +3,13 @@ import React from 'react';
 const NewNoteIcon = ({ onClick }) => {
     return (
         <div
-            className="w-[260px] h-[40px] flex items-center bg-gray-300 rounded-3 gap-8 cursor-pointer"
+            className="w-[260px] h-[40px] flex items-center bg-[#262626] rounded-full cursor-pointer m-8"
             onClick={onClick}
         >
-            <span className="text-xl">➕</span>
-            <span>New Note</span>
+            <div className="flex items-center mx-auto text-white">
+                <span className="text-l mr-1">➕</span>
+                <span>New Note</span>
+            </div>
         </div>
     );
 };
