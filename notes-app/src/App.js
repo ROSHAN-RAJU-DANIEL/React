@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import NoteDisplay from './components/NoteDisplay';
 import Sidebar from './components/Sidebar';
-import { createNote, getNotes, updateNote, deleteNote } from './data/NoteService';
+import LeftSidebar from './components/LeftSideBar';
+import { createNote, getNotes, updateNote, deleteNote } from './data/ApiService';
 
 function App() {
   const [notes, setNotes] = useState([]);
@@ -9,8 +10,16 @@ function App() {
   const [creatingNote, setCreatingNote] = useState(false);
 
   useEffect(() => {
-    setNotes(getNotes());
-  }, []);
+    async function fetchNotes() {
+      try {
+        const notesData = await getNotes();
+        setNotes(notesData);
+      } catch (error) {
+        console.error('Error fetching notes:', error);
+      }
+    }
+    fetchNotes();
+  }, [notes]);
 
   const handleCreateNote = (newNote) => {
     createNote(newNote);
@@ -25,7 +34,7 @@ function App() {
   };
 
   const handleDeleteNote = (noteId) => {
-    deleteNote(noteId)
+    deleteNote(noteId);
     setNotes(getNotes());
     setSelectedNote(null);
   };
@@ -37,6 +46,7 @@ function App() {
 
   return (
     <div className="flex gap-30">
+      <LeftSidebar />
       <Sidebar
         onNewNoteClick={() => setCreatingNote(true)}
         onNoteSelect={(note) => setSelectedNote(note)}
