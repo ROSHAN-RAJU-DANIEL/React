@@ -41,3 +41,14 @@ export const deleteNote = async (noteId) => {
         throw error;
     }
 };
+
+export const toggleFavourite = async (noteId) => {
+    try {
+        const response = await axios.put(`${API_URL}/notes/toggleFavorite/${noteId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error toggleFavorite note:', error);
+        throw error;
+    }
+};
+

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import NoteDisplay from './components/NoteDisplay';
 import Sidebar from './components/Sidebar';
 import LeftSidebar from './components/LeftSideBar';
-import { createNote, getNotes, updateNote, deleteNote } from './data/ApiService';
+import { createNote, getNotes, updateNote, deleteNote, toggleFavourite } from './data/ApiService';
 
 function App() {
   const [notes, setNotes] = useState([]);
@@ -44,6 +44,10 @@ function App() {
     setSelectedNote(null);
   };
 
+  const handleFavourite = (noteId) => {
+    toggleFavourite(noteId)
+  }
+
   return (
     <div className="flex gap-30">
       <LeftSidebar />
@@ -59,6 +63,7 @@ function App() {
         onEditNote={handleEditNote}
         onDeleteNote={handleDeleteNote}
         onCancel={handleCancel}
+        selectFavourite={handleFavourite}
       />
     </div>
   );

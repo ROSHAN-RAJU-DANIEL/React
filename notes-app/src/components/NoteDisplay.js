@@ -2,13 +2,17 @@ import React from "react";
 import NoteForm from "./NoteForm";
 import NotepadIcon from "../assets/Frame.svg";
 
-const NoteDisplay = ({ selectedNote, creatingNote, onCreateNote, onEditNote, onDeleteNote, onCancel }) => {
+const NoteDisplay = ({ selectedNote, creatingNote, onCreateNote, onEditNote, onDeleteNote, onCancel, selectFavourite }) => {
 
     const handleDelete = () => {
         if (selectedNote) {
             onDeleteNote(selectedNote.id);
         }
     };
+
+    const handleFavourite = () => {
+        selectFavourite(selectedNote.id)
+    }
 
     return (
         <div className="flex-1 h-screen p-50 bg-[#0a0a0a] relative">
@@ -21,6 +25,7 @@ const NoteDisplay = ({ selectedNote, creatingNote, onCreateNote, onEditNote, onD
                         onCancel={() => onCancel()}
                         initialNote={selectedNote}
                         onDelete={handleDelete}
+                        onFavourite={handleFavourite}
                     />
                 </div>
             ) : (
@@ -28,7 +33,7 @@ const NoteDisplay = ({ selectedNote, creatingNote, onCreateNote, onEditNote, onD
                     <img src={NotepadIcon} alt="NotepadIcon" />
                     <p className="text-white text-xl mt-4">Select a note to view</p>
                     <p className="text-white mt-2">
-                        Choose a note from the listto view its contents, or create a new note to add to your collection.
+                        Choose a note from the list to view its contents, or create a new note to add to your collection.
                     </p>
                 </div>
             )}
