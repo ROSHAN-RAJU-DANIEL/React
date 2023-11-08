@@ -16,12 +16,3 @@ const NewNoteIcon = ({ onClick }) => {
 };
 
 export default NewNoteIcon;
-
-
-<div className="bg-[#2c2c2c] p-2 mb-4 rounded-lg">
-    <input
-        type="text"
-        placeholder="Search..."
-        className="w-full bg-transparent text-white focus:outline-none"
-    />
-</div>
