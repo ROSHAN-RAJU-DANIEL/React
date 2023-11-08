@@ -52,3 +52,13 @@ export const toggleFavourite = async (noteId) => {
     }
 };
 
+export const getFavoriteNotes = async () => {
+    try {
+        const response = await axios.get(`${API_URL}/notes/favorites`);
+        return response.data;
+    } catch (error) {
+        console.error('Error getting notes:', error);
+        throw error;
+    }
+};
+

@@ -2,42 +2,58 @@ import React, { useState, useEffect } from 'react';
 import NoteDisplay from './components/NoteDisplay';
 import Sidebar from './components/Sidebar';
 import LeftSidebar from './components/LeftSideBar';
-import { createNote, getNotes, updateNote, deleteNote, toggleFavourite } from './data/ApiService';
+import { createNote, getNotes, updateNote, deleteNote, toggleFavourite, getFavoriteNotes } from './service/ApiService';
 
 function App() {
   const [notes, setNotes] = useState([]);
   const [selectedNote, setSelectedNote] = useState(null);
   const [creatingNote, setCreatingNote] = useState(false);
+  const [showFavorites, setShowFavorites] = useState(false);
 
   useEffect(() => {
     async function fetchNotes() {
       try {
-        const notesData = await getNotes();
+        const notesData = showFavorites ? await getFavoriteNotes() : await getNotes();
         setNotes(notesData);
       } catch (error) {
         console.error('Error fetching notes:', error);
       }
     }
     fetchNotes();
-  }, [notes]);
+  }, [showFavorites]);
 
-  const handleCreateNote = (newNote) => {
-    createNote(newNote);
-    setNotes(getNotes());
-    setCreatingNote(false);
-  };
+  const handleCreateNote = async (newNote) => {
+    try {
+      await createNote(newNote);
+      const updatedNotes = await getNotes();
+      setNotes(updatedNotes);
+      setCreatingNote(false);
+    } catch (error) {
+      console.error('Error creating note:', error);
+    }
+  }
 
-  const handleEditNote = (updatedNote) => {
-    updateNote(updatedNote);
-    setNotes(getNotes());
-    setSelectedNote(null);
-  };
+  const handleEditNote = async (updatedNote) => {
+    try {
+      await updateNote(updatedNote);
+      const updatedNotes = await getNotes();
+      setNotes(updatedNotes);
+      setSelectedNote(null);
+    } catch (error) {
+      console.error('Error editing note:', error);
+    }
+  }
 
-  const handleDeleteNote = (noteId) => {
-    deleteNote(noteId);
-    setNotes(getNotes());
-    setSelectedNote(null);
-  };
+  const handleDeleteNote = async (noteId) => {
+    try {
+      await deleteNote(noteId);
+      const updatedNotes = await getNotes();
+      setNotes(updatedNotes);
+      setSelectedNote(null);
+    } catch (error) {
+      console.error('Error deleting note:', error);
+    }
+  }
 
   const handleCancel = () => {
     setCreatingNote(false);
@@ -48,9 +64,13 @@ function App() {
     toggleFavourite(noteId)
   }
 
+  const handleShowFavorites = () => {
+    setShowFavorites(true);
+  };
+
   return (
     <div className="flex gap-30">
-      <LeftSidebar />
+      <LeftSidebar onShowFavoritesClick={handleShowFavorites} />
       <Sidebar
         onNewNoteClick={() => setCreatingNote(true)}
         onNoteSelect={(note) => setSelectedNote(note)}

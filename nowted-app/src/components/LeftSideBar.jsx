@@ -6,7 +6,7 @@ import AppLogo from "../assets/AppLogo.svg";
 import SearchIcon from "../assets/SearchIcon.svg";
 import Folder from "../assets/Folder.svg"
 
-const LeftSidebar = () => {
+const LeftSidebar = ({ onShowFavoritesClick }) => {
     return (
         <div className="w-[250px] h-screen bg-[#0a0a0a] p-4">
             <div className="flex items-center justify-between mt-2 ml-2 mb-6">
@@ -23,7 +23,7 @@ const LeftSidebar = () => {
                     className="w-full bg-transparent text-white focus:outline-none"
                 />
             </div>
-            <div className="mb-4 mt-6">
+            <div className="mb-4 mt-6 p-2">
                 <div className="text-[#737373]  font-bold text-base mb-6">Folders</div>
                 <ul className="font-source-sans-pro text-[#737373] text-sm font-bold cursor-pointer">
                     <li className="flex items-center  mb-4 ">
@@ -48,18 +48,18 @@ const LeftSidebar = () => {
                     </li>
                 </ul>
             </div>
-            <div className="mb-4 mt-10">
+            <div className="mb-4 mt-10 p-2">
                 <div className="text-[#737373] font-bold mb-6">More</div>
-                <ul className="font-source-sans-pro text-[#737373] text-sm font-bold cursor-pointer">
-                    <li className="flex items-center  mb-4 " >
+                <ul className="font-source-sans-pro text-[#737373] text-sm font-bold group">
+                    <li className="flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:bg-[#2c2c2c]" onClick={onShowFavoritesClick}>
                         <img src={FavouritesIcon} alt="Favourites" className="w-4 h-4 mr-2" />
                         Favourites
                     </li>
-                    <li className="flex items-center mb-4 cursor-pointer">
+                    <li className="flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:bg-[#2c2c2c]">
                         <img src={DeletedIcon} alt="Deleted" className="w-4 h-4 mr-2" />
-                        Deleted
+                        Trash
                     </li>
-                    <li className="flex items-center mb-4 cursor-pointer">
+                    <li className="flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:bg-[#2c2c2c]">
                         <img src={ArchivedIcon} alt="Archived" className="w-4 h-4 mr-2" />
                         Archived
                     </li>
