@@ -14,7 +14,7 @@ export const createNote = async (note) => {
 
 export const getNotes = async () => {
     try {
-        const response = await axios.get(`${API_URL}/notes`);
+        const response = await axios.get(`${API_URL}/notes/undeleted`);
         return response.data;
     } catch (error) {
         console.error('Error getting notes:', error);
@@ -34,7 +34,7 @@ export const updateNote = async (updatedNote) => {
 
 export const deleteNote = async (noteId) => {
     try {
-        const response = await axios.delete(`${API_URL}/notes/${noteId}`);
+        const response = await axios.delete(`${API_URL}/notes/toggleSoftDelete/${noteId}`);
         return response.data;
     } catch (error) {
         console.error('Error deleting note:', error);

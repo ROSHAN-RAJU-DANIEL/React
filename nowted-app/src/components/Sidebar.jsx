@@ -1,14 +1,26 @@
 import React from "react";
 import NewNoteIcon from "./NewNoteIcon";
+import { useDispatch, useSelector } from 'react-redux';
+import { setShowFavorites } from '../redux/slice'
 
-const Sidebar = ({ onNewNoteClick, onNoteSelect, savedNotes }) => {
+
+const Sidebar = ({ onNewNoteClick, onNoteSelect }) => {
+    const dispatch = useDispatch();
+
+    const handleNewNoteClick = () => {
+        dispatch(setShowFavorites(false));
+        onNewNoteClick();
+    };
+
+    const notes = useSelector((state) => state.notes.notes);
+    const sortedNotes = [...notes].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
     return (
-        <div className="w-[350px] h-screen bg-[#171717] p-30" style={{ overflowY: savedNotes.length > 6 ? "scroll" : "hidden", overflowX: "hidden" }}>
-            <NewNoteIcon onClick={onNewNoteClick} />
+        <div className="w-[350px] h-screen bg-[#171717] p-30" style={{ overflowY: sortedNotes.length > 6 ? "scroll" : "hidden", overflowX: "hidden" }}>
+            <NewNoteIcon onClick={handleNewNoteClick} />
             <div className="h-screen">
-                {savedNotes.length > 0 && (
+                {sortedNotes.length > 0 && (
                     <div>
-                        {savedNotes.map((note) => (
+                        {sortedNotes.map((note) => (
                             <div
                                 key={note.id}
                                 onClick={() => onNoteSelect(note)}
