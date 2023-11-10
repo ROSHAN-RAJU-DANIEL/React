@@ -4,7 +4,7 @@ import PlusIcon from '../assets/PlusIcon.svg'
 const NewNoteIcon = ({ onClick }) => {
     return (
         <div
-            className="w-[260px] h-[40px] flex items-center bg-[#262626] rounded-lg cursor-pointer m-10 p-2"
+            className="w-[260px] h-[40px] flex items-center bg-[#262626] rounded-lg cursor-pointer m-10 p-2 transition-colors duration-300 hover:bg-[#737373]"
             onClick={onClick}
         >
             <div className="flex items-center mx-auto text-white font-source-sans-pro">

@@ -1,7 +1,6 @@
 import React from "react";
 import FavouritesIcon from "../assets/Favourite.svg";
 import DeletedIcon from "../assets/Trash.svg";
-import ArchivedIcon from "../assets/Archived.svg";
 import AppLogo from "../assets/AppLogo.svg";
 import SearchIcon from "../assets/SearchIcon.svg";
 import Folder from "../assets/Folder.svg"
@@ -29,7 +28,7 @@ const LeftSidebar = () => {
         <div className="w-[250px] h-screen bg-[#0a0a0a] p-4">
             <div className="flex items-center justify-between mt-2 mb-6">
                 <div className="flex items-center">
-                    <span className="text-white text-xl font-kaushan mr-2">Nowted</span>
+                    <span className="text-white text-xl font-kaushan mr-2 animate-bounce">Nowted</span>
                     <img src={AppLogo} alt="Nowted Logo" className="w-3 h-3 mr-2 mb-3" />
                 </div>
                 <img src={SearchIcon} alt="search" className="w-4 h-4 mr-2" />
@@ -76,10 +75,6 @@ const LeftSidebar = () => {
                     <li className={`w-[250px] h-[30px] flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:bg-[#2c2c2c] ${showDeleted ? 'bg-[#312EB5]' : ''}`} onClick={onShowDeletedClick}>
                         <img src={DeletedIcon} alt="Deleted" className="w-4 h-4 mr-2" />
                         Trash
-                    </li>
-                    <li className="w-[250px] h-[30px] flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:bg-[#2c2c2c]">
-                        <img src={ArchivedIcon} alt="Archived" className="w-4 h-4 mr-2" />
-                        Archived
                     </li>
                 </ul>
             </div>
