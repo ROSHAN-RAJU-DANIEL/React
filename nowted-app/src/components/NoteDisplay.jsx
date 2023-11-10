@@ -61,8 +61,8 @@ const NoteDisplay = () => {
                     {selectedNote && selectedNote.deleted ? (
                         <div className="flex flex-col items-center text-center justify-center">
                             <img src={RestorePic} alt="RestorePic" className="w-10 h-10 mb-4" />
-                            <p className="text-white text-xl mt-2">Cannot view contents. Note is deleted.</p>
-                            <p className="text-white text-sm mt-2">Don't want to lose this note? It's not too late! Just click the 'Restore' button and it will be added back to your list. It's that simple.</p>
+                            <p className="text-gray-300 text-xl mt-2">Cannot view contents. Note is deleted.</p>
+                            <p className="text-gray-500 text-sm mt-2">Don't want to lose this note? It's not too late! Just click the 'Restore' button and it will be added back to your list. It's that simple.</p>
                             <button className="bg-[#312EB5] text-white px-4 py-2 mt-4" onClick={handleRestore}>
                                 Restore
                             </button>
@@ -81,8 +81,8 @@ const NoteDisplay = () => {
             ) : (
                 <div className="flex flex-col items-center justify-center h-full">
                     <img src={NotepadIcon} alt="NotepadIcon" />
-                    <p className="text-white text-xl mt-4">Select a note to view</p>
-                    <p className="text-white mt-2">
+                    <p className="text-gray-300 text-xl mt-4">Select a note to view</p>
+                    <p className="text-gray-500 mt-2">
                         Choose a note from the list to view its contents, or create a new note to add to your collection.
                     </p>
                 </div>

@@ -4,8 +4,9 @@ import DeletedIcon from "../assets/Trash.svg";
 import AppLogo from "../assets/AppLogo.svg";
 import SearchIcon from "../assets/SearchIcon.svg";
 import Folder from "../assets/Folder.svg"
+import NewNoteIcon from "./NewNoteIcon";
 import { useDispatch, useSelector } from 'react-redux';
-import { setShowFavorites, setShowDeleted, setSelectedNoteItem } from '../redux/slice'
+import { setShowFavorites, setShowDeleted, setSelectedNoteItem, setCreatingNote } from '../redux/slice'
 
 const LeftSidebar = () => {
     const dispatch = useDispatch();
@@ -24,6 +25,13 @@ const LeftSidebar = () => {
         dispatch(setSelectedNoteItem(null))
     };
 
+    const handleNewNoteClick = () => {
+        dispatch(setShowFavorites(false));
+        dispatch(setShowDeleted(false));
+        dispatch(setCreatingNote(true));
+        dispatch(setSelectedNoteItem(null))
+    };
+
     return (
         <div className="w-[250px] h-screen bg-[#0a0a0a] p-4">
             <div className="flex items-center justify-between mt-2 mb-6">
@@ -33,13 +41,7 @@ const LeftSidebar = () => {
                 </div>
                 <img src={SearchIcon} alt="search" className="w-4 h-4 mr-2" />
             </div>
-            <div className="bg-[#2c2c2c] p-2 mb-4 rounded-lg">
-                <input
-                    type="text"
-                    placeholder="Search..."
-                    className="w-full bg-transparent text-white focus:outline-none"
-                />
-            </div>
+            <NewNoteIcon onClick={handleNewNoteClick} />
             <div className="mb-4 mt-6 p-2">
                 <div className="text-[#737373]  font-bold text-base mb-6">Folders</div>
                 <ul className="font-source-sans-pro text-[#737373] text-sm font-bold cursor-pointer">
