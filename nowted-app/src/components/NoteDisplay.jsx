@@ -1,6 +1,7 @@
 import React from "react";
 import NoteForm from "./NoteForm";
 import NotepadIcon from "../assets/Frame.svg";
+import RestorePic from "../assets/RestorePic.svg";
 import { useSelector, useDispatch } from 'react-redux';
 import { setSelectedNoteItem, setCreatingNote } from '../redux/slice'
 import {
@@ -37,6 +38,12 @@ const NoteDisplay = () => {
         dispatch(setSelectedNoteItem(null));
     };
 
+    const handleRestore = () => {
+        dispatch(deleteNoteAsync(selectedNote.id));
+        dispatch(setSelectedNoteItem(null));
+        dispatch(fetchNotes({ showFavorites, showDeleted }));
+    };
+
     const onCancel = () => {
         dispatch(setCreatingNote(false));
         dispatch(setSelectedNoteItem(null));
@@ -52,8 +59,13 @@ const NoteDisplay = () => {
             {creatingNote || selectedNote ? (
                 <div className="flex items-center justify-center h-full">
                     {selectedNote && selectedNote.deleted ? (
-                        <div>
-                            <p className="text-white text-xl mt-4">Cannot view contents. Note is deleted.</p>
+                        <div className="flex flex-col items-center text-center justify-center">
+                            <img src={RestorePic} alt="RestorePic" className="w-10 h-10 mb-4" />
+                            <p className="text-white text-xl mt-2">Cannot view contents. Note is deleted.</p>
+                            <p className="text-white text-sm mt-2">Don't want to lose this note? It's not too late! Just click the 'Restore' button and it will be added back to your list. It's that simple.</p>
+                            <button className="bg-[#312EB5] text-white px-4 py-2 mt-4" onClick={handleRestore}>
+                                Restore
+                            </button>
                         </div>
                     ) : (
                         <NoteForm

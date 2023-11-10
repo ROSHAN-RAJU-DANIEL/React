@@ -32,7 +32,7 @@ const Sidebar = () => {
                                 onClick={() => handleNoteSelect(note)}
                                 className="cursor-pointer"
                             >
-                                <div className={`h-24 p-4 text-white text-center m-4 ${note.id === selectedNoteItem?.id ? 'bg-blue-500 text-white' : 'bg-[#262626]'}`}>
+                                <div className={`h-24 p-4 text-white text-center m-4 ${note.id === selectedNoteItem?.id ? 'bg-[#312EB5] text-white' : 'bg-[#262626]'}`}>
                                     <div className="mb-2 font-source-sans-pro text-md">{note.title}</div>
                                     <div className="text-sm truncate text-gray-400">{new Date(note.updatedAt).toLocaleDateString()}  {note.content}</div>
                                 </div>
