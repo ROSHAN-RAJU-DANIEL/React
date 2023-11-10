@@ -5,8 +5,14 @@ import ArchivedIcon from "../assets/Archived.svg";
 import AppLogo from "../assets/AppLogo.svg";
 import SearchIcon from "../assets/SearchIcon.svg";
 import Folder from "../assets/Folder.svg"
+import { useDispatch } from 'react-redux';
+import { setShowFavorites } from '../redux/slice'
 
-const LeftSidebar = ({ onShowFavoritesClick }) => {
+const LeftSidebar = () => {
+    const dispatch = useDispatch();
+    const onShowFavoritesClick = () => {
+        dispatch(setShowFavorites(true));
+    };
     return (
         <div className="w-[250px] h-screen bg-[#0a0a0a] p-4">
             <div className="flex items-center justify-between mt-2 ml-2 mb-6">

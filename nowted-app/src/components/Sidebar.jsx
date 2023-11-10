@@ -1,18 +1,22 @@
 import React from "react";
 import NewNoteIcon from "./NewNoteIcon";
 import { useDispatch, useSelector } from 'react-redux';
-import { setShowFavorites } from '../redux/slice'
+import { setShowFavorites, setSelectedNoteItem, setCreatingNote } from '../redux/slice'
 
 
-const Sidebar = ({ onNewNoteClick, onNoteSelect }) => {
+const Sidebar = () => {
     const dispatch = useDispatch();
-
     const handleNewNoteClick = () => {
         dispatch(setShowFavorites(false));
-        onNewNoteClick();
+        dispatch(setCreatingNote(true));
     };
 
+    const handleNoteSelect = (note) => {
+        dispatch(setSelectedNoteItem(note))
+    }
+
     const notes = useSelector((state) => state.notes.notes);
+    const selectedNoteItem = useSelector((state) => state.notes.selectedNoteItem);
     const sortedNotes = [...notes].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
     return (
         <div className="w-[350px] h-screen bg-[#171717] p-30" style={{ overflowY: sortedNotes.length > 6 ? "scroll" : "hidden", overflowX: "hidden" }}>
@@ -23,12 +27,12 @@ const Sidebar = ({ onNewNoteClick, onNoteSelect }) => {
                         {sortedNotes.map((note) => (
                             <div
                                 key={note.id}
-                                onClick={() => onNoteSelect(note)}
+                                onClick={() => handleNoteSelect(note)}
                                 className="cursor-pointer"
                             >
-                                <div className="h-24 p-4 bg-[#262626] text-white text-center m-4">
+                                <div className={`h-24 p-4 text-white text-center m-4 ${note.id === selectedNoteItem?.id ? 'bg-blue-500 text-white' : 'bg-[#262626]'}`}>
                                     <div className="mb-2 font-source-sans-pro text-md">{note.title}</div>
-                                    <div className="text-sm truncate text-gray-500">{new Date(note.updatedAt).toLocaleDateString()}  {note.content}</div>
+                                    <div className="text-sm truncate text-gray-400">{new Date(note.updatedAt).toLocaleDateString()}  {note.content}</div>
                                 </div>
                             </div>
                         ))}

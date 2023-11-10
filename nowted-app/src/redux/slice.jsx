@@ -3,10 +3,16 @@ import { fetchNotes, createNoteAsync, updateNoteAsync, deleteNoteAsync, toggleFa
 
 const notesSlice = createSlice({
     name: 'notes',
-    initialState: { notes: [], showFavorites: false, status: 'idle', error: null },
+    initialState: { notes: [], showFavorites: false, selectedNoteItem: null, creatingNote: false, status: 'idle', error: null },
     reducers: {
         setShowFavorites: (state, action) => {
             state.showFavorites = action.payload;
+        },
+        setSelectedNoteItem: (state, action) => {
+            state.selectedNoteItem = action.payload;
+        },
+        setCreatingNote: (state, action) => {
+            state.creatingNote = action.payload;
         },
     },
     extraReducers: (builder) => {
@@ -44,6 +50,6 @@ const notesSlice = createSlice({
     },
 });
 
-export const { setShowFavorites } = notesSlice.actions;
+export const { setShowFavorites, setSelectedNoteItem, setCreatingNote } = notesSlice.actions;
 
 export default notesSlice.reducer;

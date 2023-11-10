@@ -1,17 +1,48 @@
 import React from "react";
 import NoteForm from "./NoteForm";
 import NotepadIcon from "../assets/Frame.svg";
+import { useSelector, useDispatch } from 'react-redux';
+import { setSelectedNoteItem, setCreatingNote } from '../redux/slice'
+import {
+    fetchNotes,
+    createNoteAsync,
+    updateNoteAsync,
+    deleteNoteAsync,
+    toggleFavouriteAsync,
+} from '../redux/actions'
 
-const NoteDisplay = ({ selectedNote, creatingNote, onCreateNote, onEditNote, onDeleteNote, onCancel, selectFavourite }) => {
+const NoteDisplay = () => {
+
+    const dispatch = useDispatch();
+    const creatingNote = useSelector((state) => state.notes.creatingNote);
+    const selectedNote = useSelector((state) => state.notes.selectedNoteItem);
+    const showFavorites = useSelector((state) => state.notes.showFavorites);
+
+    const onCreateNote = (newNote) => {
+        dispatch(createNoteAsync(newNote));
+        dispatch(setCreatingNote(false));
+        dispatch(fetchNotes(showFavorites));
+    };
+
+    const onEditNote = (updatedNote) => {
+        dispatch(updateNoteAsync(updatedNote));
+        dispatch(setSelectedNoteItem(null));
+        dispatch(fetchNotes(showFavorites));
+    };
 
     const handleDelete = () => {
-        if (selectedNote) {
-            onDeleteNote(selectedNote.id);
-        }
+        dispatch(deleteNoteAsync(selectedNote.id));
+        dispatch(setSelectedNoteItem(null));
+    };
+
+    const onCancel = () => {
+        dispatch(setCreatingNote(false));
+        dispatch(setSelectedNoteItem(null));
+        dispatch(fetchNotes(showFavorites));
     };
 
     const handleFavourite = () => {
-        selectFavourite(selectedNote.id)
+        dispatch(toggleFavouriteAsync(selectedNote.id))
     }
 
     return (
