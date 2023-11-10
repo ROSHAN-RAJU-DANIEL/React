@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import DateIcon from "../assets/DateIcon.svg"
 import Bold from "../assets/Bold.svg"
 import Italic from "../assets/Italic.svg"
@@ -9,16 +10,21 @@ import ArrowDown from "../assets/ArrowDown.svg"
 import FavouritesIcon from "../assets/Favourite.svg";
 import DeletedIcon from "../assets/Trash.svg";
 
-const NoteForm = ({ onSave, onCancel, initialNote, onDelete, onFavourite }) => {
+const NoteForm = ({ onSave, onCancel, onDelete, onFavourite }) => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [showDropdown, setShowDropdown] = useState(false);
     const dropdownRef = useRef(null);
 
+    const initialNote = useSelector((state) => state.notes.selectedNoteItem);
+
     useEffect(() => {
         if (initialNote) {
             setTitle(initialNote.title);
             setContent(initialNote.content);
+        } else {
+            setTitle('');
+            setContent('');
         }
     }, [initialNote]);
 

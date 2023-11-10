@@ -62,3 +62,13 @@ export const getFavoriteNotes = async () => {
     }
 };
 
+export const getDeletedNotes = async () => {
+    try {
+        const response = await axios.get(`${API_URL}/notes/deleted`);
+        return response.data;
+    } catch (error) {
+        console.error('Error getting notes:', error);
+        throw error;
+    }
+};
+

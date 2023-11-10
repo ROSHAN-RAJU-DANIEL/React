@@ -6,13 +6,22 @@ import AppLogo from "../assets/AppLogo.svg";
 import SearchIcon from "../assets/SearchIcon.svg";
 import Folder from "../assets/Folder.svg"
 import { useDispatch } from 'react-redux';
-import { setShowFavorites } from '../redux/slice'
+import { setShowFavorites, setShowDeleted, setSelectedNoteItem } from '../redux/slice'
 
 const LeftSidebar = () => {
     const dispatch = useDispatch();
     const onShowFavoritesClick = () => {
         dispatch(setShowFavorites(true));
+        dispatch(setShowDeleted(false));
+        dispatch(setSelectedNoteItem(null))
     };
+
+    const onShowDeletedClick = () => {
+        dispatch(setShowFavorites(false));
+        dispatch(setShowDeleted(true));
+        dispatch(setSelectedNoteItem(null))
+    };
+
     return (
         <div className="w-[250px] h-screen bg-[#0a0a0a] p-4">
             <div className="flex items-center justify-between mt-2 ml-2 mb-6">
@@ -20,7 +29,7 @@ const LeftSidebar = () => {
                     <span className="text-white text-xl font-kaushan mr-2">Nowted</span>
                     <img src={AppLogo} alt="Nowted Logo" className="w-3 h-3 mr-2 mb-3" />
                 </div>
-                <img src={SearchIcon} alt="search" className="w-4 h-4 mr-8" />
+                <img src={SearchIcon} alt="search" className="w-4 h-4 mr-2" />
             </div>
             <div className="bg-[#2c2c2c] p-2 mb-4 rounded-lg">
                 <input
@@ -61,7 +70,7 @@ const LeftSidebar = () => {
                         <img src={FavouritesIcon} alt="Favourites" className="w-4 h-4 mr-2" />
                         Favourites
                     </li>
-                    <li className="flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:bg-[#2c2c2c]">
+                    <li className="flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:bg-[#2c2c2c]" onClick={onShowDeletedClick}>
                         <img src={DeletedIcon} alt="Deleted" className="w-4 h-4 mr-2" />
                         Trash
                     </li>

@@ -1,14 +1,16 @@
 import React from "react";
 import NewNoteIcon from "./NewNoteIcon";
 import { useDispatch, useSelector } from 'react-redux';
-import { setShowFavorites, setSelectedNoteItem, setCreatingNote } from '../redux/slice'
+import { setShowFavorites, setSelectedNoteItem, setCreatingNote, setShowDeleted } from '../redux/slice'
 
 
 const Sidebar = () => {
     const dispatch = useDispatch();
     const handleNewNoteClick = () => {
         dispatch(setShowFavorites(false));
+        dispatch(setShowDeleted(false));
         dispatch(setCreatingNote(true));
+        dispatch(setSelectedNoteItem(null))
     };
 
     const handleNoteSelect = (note) => {

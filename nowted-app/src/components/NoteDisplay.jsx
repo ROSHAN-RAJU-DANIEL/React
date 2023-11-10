@@ -17,17 +17,19 @@ const NoteDisplay = () => {
     const creatingNote = useSelector((state) => state.notes.creatingNote);
     const selectedNote = useSelector((state) => state.notes.selectedNoteItem);
     const showFavorites = useSelector((state) => state.notes.showFavorites);
+    const showDeleted = useSelector((state) => state.notes.showDeleted);
+
 
     const onCreateNote = (newNote) => {
         dispatch(createNoteAsync(newNote));
         dispatch(setCreatingNote(false));
-        dispatch(fetchNotes(showFavorites));
+        dispatch(fetchNotes({ showFavorites, showDeleted }));
     };
 
     const onEditNote = (updatedNote) => {
         dispatch(updateNoteAsync(updatedNote));
         dispatch(setSelectedNoteItem(null));
-        dispatch(fetchNotes(showFavorites));
+        dispatch(fetchNotes({ showFavorites, showDeleted }));
     };
 
     const handleDelete = () => {
@@ -38,7 +40,7 @@ const NoteDisplay = () => {
     const onCancel = () => {
         dispatch(setCreatingNote(false));
         dispatch(setSelectedNoteItem(null));
-        dispatch(fetchNotes(showFavorites));
+        dispatch(fetchNotes({ showFavorites, showDeleted }));
     };
 
     const handleFavourite = () => {
@@ -49,15 +51,20 @@ const NoteDisplay = () => {
         <div className="flex-1 h-screen p-50 bg-[#0a0a0a] relative">
             {creatingNote || selectedNote ? (
                 <div className="flex items-center justify-center h-full">
-                    <NoteForm
-                        onSave={(newNote) => {
-                            creatingNote ? onCreateNote(newNote) : onEditNote(newNote);
-                        }}
-                        onCancel={() => onCancel()}
-                        initialNote={selectedNote}
-                        onDelete={handleDelete}
-                        onFavourite={handleFavourite}
-                    />
+                    {selectedNote && selectedNote.deleted ? (
+                        <div>
+                            <p className="text-white text-xl mt-4">Cannot view contents. Note is deleted.</p>
+                        </div>
+                    ) : (
+                        <NoteForm
+                            onSave={(newNote) => {
+                                creatingNote ? onCreateNote(newNote) : onEditNote(newNote);
+                            }}
+                            onCancel={() => onCancel()}
+                            onDelete={handleDelete}
+                            onFavourite={handleFavourite}
+                        />
+                    )}
                 </div>
             ) : (
                 <div className="flex flex-col items-center justify-center h-full">

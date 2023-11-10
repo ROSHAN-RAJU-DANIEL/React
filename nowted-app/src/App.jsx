@@ -9,10 +9,11 @@ import { fetchNotes } from './redux/actions';
 function App() {
   const dispatch = useDispatch();
   const showFavorites = useSelector((state) => state.notes.showFavorites);
+  const showDeleted = useSelector((state) => state.notes.showDeleted);
 
   useEffect(() => {
-    dispatch(fetchNotes(showFavorites));
-  }, [showFavorites, dispatch]);
+    dispatch(fetchNotes({ showFavorites, showDeleted }));
+  }, [showFavorites, showDeleted, dispatch]);
 
   return (
     <div className="flex gap-30">
