@@ -17,6 +17,7 @@ const NoteForm = ({ onSave, onCancel, onDelete, onFavourite }) => {
     const dropdownRef = useRef(null);
 
     const initialNote = useSelector((state) => state.notes.selectedNoteItem);
+    const folder = useSelector((state) => state.notes.selectedFolder);
 
     useEffect(() => {
         if (initialNote) {
@@ -44,7 +45,7 @@ const NoteForm = ({ onSave, onCancel, onDelete, onFavourite }) => {
 
     const handleSave = () => {
         if (title && content) {
-            onSave({ title, content, id: initialNote ? initialNote.id : null });
+            onSave({ title, content, folder, id: initialNote ? initialNote.id : null });
             setTitle('');
             setContent('');
             onCancel();

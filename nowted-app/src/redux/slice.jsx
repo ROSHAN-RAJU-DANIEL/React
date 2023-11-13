@@ -3,19 +3,19 @@ import { fetchNotes, createNoteAsync, updateNoteAsync, deleteNoteAsync, toggleFa
 
 const notesSlice = createSlice({
     name: 'notes',
-    initialState: { notes: [], showFavorites: false, showDeleted: false, selectedNoteItem: null, creatingNote: false, status: 'idle', error: null },
+    initialState: { notes: [], showFavorites: false, showDeleted: false, selectedFolder: 'Personal', selectedNoteItem: null, creatingNote: false, status: 'idle', error: null },
     reducers: {
-        setShowFavorites: (state, action) => {
-            state.showFavorites = action.payload;
-        },
         setSelectedNoteItem: (state, action) => {
             state.selectedNoteItem = action.payload;
         },
         setCreatingNote: (state, action) => {
             state.creatingNote = action.payload;
         },
-        setShowDeleted: (state, action) => {
-            state.showDeleted = action.payload;
+        setView: (state, action) => {
+            const view = action.payload;
+            state.showFavorites = view === 'favorites';
+            state.showDeleted = view === 'deleted';
+            state.selectedFolder = view;
         },
     },
     extraReducers: (builder) => {
@@ -53,6 +53,6 @@ const notesSlice = createSlice({
     },
 });
 
-export const { setShowFavorites, setSelectedNoteItem, setCreatingNote, setShowDeleted } = notesSlice.actions;
+export const { setSelectedNoteItem, setCreatingNote, setView } = notesSlice.actions;
 
 export default notesSlice.reducer;
