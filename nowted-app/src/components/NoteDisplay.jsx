@@ -19,18 +19,19 @@ const NoteDisplay = () => {
     const selectedNote = useSelector((state) => state.notes.selectedNoteItem);
     const showFavorites = useSelector((state) => state.notes.showFavorites);
     const showDeleted = useSelector((state) => state.notes.showDeleted);
+    const selectedFolder = useSelector((state) => state.notes.selectedFolder);
 
 
     const onCreateNote = (newNote) => {
         dispatch(createNoteAsync(newNote));
         dispatch(setCreatingNote(false));
-        dispatch(fetchNotes({ showFavorites, showDeleted }));
+        dispatch(fetchNotes({ showFavorites, showDeleted, selectedFolder }));
     };
 
     const onEditNote = (updatedNote) => {
         dispatch(updateNoteAsync(updatedNote));
         dispatch(setSelectedNoteItem(null));
-        dispatch(fetchNotes({ showFavorites, showDeleted }));
+        dispatch(fetchNotes({ showFavorites, showDeleted, selectedFolder }));
     };
 
     const handleDelete = () => {
@@ -41,13 +42,13 @@ const NoteDisplay = () => {
     const handleRestore = () => {
         dispatch(deleteNoteAsync(selectedNote.id));
         dispatch(setSelectedNoteItem(null));
-        dispatch(fetchNotes({ showFavorites, showDeleted }));
+        dispatch(fetchNotes({ showFavorites, showDeleted, selectedFolder }));
     };
 
     const onCancel = () => {
         dispatch(setCreatingNote(false));
         dispatch(setSelectedNoteItem(null));
-        dispatch(fetchNotes({ showFavorites, showDeleted }));
+        dispatch(fetchNotes({ showFavorites, showDeleted, selectedFolder }));
     };
 
     const handleFavourite = () => {

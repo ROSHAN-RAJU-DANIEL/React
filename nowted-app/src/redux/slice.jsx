@@ -13,8 +13,8 @@ const notesSlice = createSlice({
         },
         setView: (state, action) => {
             const view = action.payload;
-            state.showFavorites = view === 'favorites';
-            state.showDeleted = view === 'deleted';
+            state.showFavorites = view === 'Favourites';
+            state.showDeleted = view === 'Trash';
             state.selectedFolder = view;
         },
     },

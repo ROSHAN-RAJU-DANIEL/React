@@ -72,3 +72,13 @@ export const getDeletedNotes = async () => {
     }
 };
 
+export const getFolderNotes = async (folder) => {
+    try {
+        const response = await axios.get(`${API_URL}/notes/byFolder/${folder}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error getting notes:', error);
+        throw error;
+    }
+};
+

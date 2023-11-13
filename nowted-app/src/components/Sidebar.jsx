@@ -12,9 +12,12 @@ const Sidebar = () => {
     const notes = useSelector((state) => state.notes.notes);
     const selectedNoteItem = useSelector((state) => state.notes.selectedNoteItem);
     const sortedNotes = [...notes].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+    const selectedFolder = useSelector((state) => state.notes.selectedFolder);
+
     return (
         <div className="w-[350px] h-screen bg-[#171717] p-30" style={{ overflowY: sortedNotes.length > 6 ? "scroll" : "hidden", overflowX: "hidden" }}>
             <div className="h-screen">
+                <span className="p-4 font-source-sans-pro text-[#737373] text-xl font-bold text-center mt-4">{selectedFolder}</span>
                 {sortedNotes.length > 0 && (
                     <div>
                         {sortedNotes.map((note) => (

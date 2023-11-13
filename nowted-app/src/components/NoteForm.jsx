@@ -9,20 +9,23 @@ import ImageIcon from "../assets/Image.svg"
 import ArrowDown from "../assets/ArrowDown.svg"
 import FavouritesIcon from "../assets/Favourite.svg";
 import DeletedIcon from "../assets/Trash.svg";
+import Folder from "../assets/Folder.svg"
 
 const NoteForm = ({ onSave, onCancel, onDelete, onFavourite }) => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [folder, setFolder] = useState('');
     const [showDropdown, setShowDropdown] = useState(false);
     const dropdownRef = useRef(null);
 
     const initialNote = useSelector((state) => state.notes.selectedNoteItem);
-    const folder = useSelector((state) => state.notes.selectedFolder);
+    const selectedFolder = useSelector((state) => state.notes.selectedFolder);
 
     useEffect(() => {
         if (initialNote) {
             setTitle(initialNote.title);
             setContent(initialNote.content);
+            setFolder(initialNote.folder)
         } else {
             setTitle('');
             setContent('');
@@ -45,7 +48,7 @@ const NoteForm = ({ onSave, onCancel, onDelete, onFavourite }) => {
 
     const handleSave = () => {
         if (title && content) {
-            onSave({ title, content, folder, id: initialNote ? initialNote.id : null });
+            onSave({ title, content, folder: initialNote ? initialNote.folder : selectedFolder, id: initialNote ? initialNote.id : null });
             setTitle('');
             setContent('');
             onCancel();
@@ -106,13 +109,23 @@ const NoteForm = ({ onSave, onCancel, onDelete, onFavourite }) => {
                 )}
             </div>
             {initialNote && (
-                <div className="mb-4 ml-2 flex items-center">
-                    <span className="text-white text-sm mr-2">Date</span>
-                    <img src={DateIcon} alt="Calendar Icon" className="w-4 h-4 mr-2" />
-                    <span className="text-white text-sm ml-14">
-                        {new Date(initialNote.updatedAt).toLocaleString()}
-                    </span>
-                </div>
+                <>
+                    <div className="mb-4 ml-2 flex items-center">
+                        <span className="text-white text-sm mr-2">Date</span>
+                        <img src={DateIcon} alt="Calendar Icon" className="w-4 h-4 mr-2" />
+                        <span className="text-white text-sm ml-14">
+                            {new Date(initialNote.updatedAt).toLocaleString()}
+                        </span>
+                    </div>
+                    <hr className="mb-2 border-t border-[#4b5563]" />
+                    <div className="mb-4 ml-2 flex items-center">
+                        <span className="text-white text-sm mr-2">Folder</span>
+                        <img src={Folder} alt="Calendar Icon" className="w-4 h-4 mr-2" />
+                        <span className="text-white text-sm ml-14">
+                            {initialNote.folder}
+                        </span>
+                    </div>
+                </>
             )}
             <hr className="mb-2 border-t border-[#4b5563]" />
             <div className="mb-2 flex items-center space-x-6">
@@ -130,7 +143,7 @@ const NoteForm = ({ onSave, onCancel, onDelete, onFavourite }) => {
             <div className="mb-4">
                 <textarea
                     placeholder="Content"
-                    className="w-full h-[520px] p-2 rounded-md bg-[#0a0a0a] text-white"
+                    className="w-full h-[460px] p-2 rounded-md bg-[#0a0a0a] text-white"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                 />

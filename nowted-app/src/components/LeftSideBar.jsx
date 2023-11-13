@@ -92,11 +92,11 @@ const LeftSidebar = () => {
             <div className="mb-4 mt-10 p-2">
                 <div className="text-[#737373] font-bold mb-4">More</div>
                 <ul className="font-source-sans-pro text-[#737373] text-sm font-bold group">
-                    <li className={`w-[250px] h-[30px] flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:bg-[#2c2c2c] ${showFavorites ? 'bg-[#312EB5]' : ''}`} onClick={() => onFolderClick('favorites')}>
+                    <li className={`w-[250px] h-[30px] flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:bg-[#2c2c2c] ${showFavorites ? 'bg-[#312EB5]' : ''}`} onClick={() => onFolderClick('Favourites')}>
                         <img src={FavouritesIcon} alt="Favourites" className="w-4 h-4 mr-2" />
                         Favourites
                     </li>
-                    <li className={`w-[250px] h-[30px] flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:bg-[#2c2c2c] ${showDeleted ? 'bg-[#312EB5]' : ''}`} onClick={() => onFolderClick('deleted')}>
+                    <li className={`w-[250px] h-[30px] flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:bg-[#2c2c2c] ${showDeleted ? 'bg-[#312EB5]' : ''}`} onClick={() => onFolderClick('Trash')}>
                         <img src={DeletedIcon} alt="Deleted" className="w-4 h-4 mr-2" />
                         Trash
                     </li>
