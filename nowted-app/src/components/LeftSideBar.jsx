@@ -48,7 +48,7 @@ const LeftSidebar = () => {
                 <div className="text-[#737373]  font-bold text-base mb-6">Folders</div>
                 <ul className="font-source-sans-pro text-[#737373] text-sm font-bold cursor-pointer">
                     <li
-                        className={`w-[250px] h-[30px] flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:bg-[#2c2c2c] ${selectedFolder === 'Personal' ? 'bg-[#312EB5]' : ''
+                        className={`w-[250px] h-[30px] flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:text-[#2c2c2c] ${selectedFolder === 'Personal' ? 'text-[#312EB5]' : ''
                             }`}
                         onClick={() => onFolderClick('Personal')}
                     >
@@ -56,7 +56,7 @@ const LeftSidebar = () => {
                         Personal
                     </li>
                     <li
-                        className={`w-[250px] h-[30px] flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:bg-[#2c2c2c] ${selectedFolder === 'Work' ? 'bg-[#312EB5]' : ''
+                        className={`w-[250px] h-[30px] flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:text-[#2c2c2c] ${selectedFolder === 'Work' ? 'text-[#312EB5]' : ''
                             }`}
                         onClick={() => onFolderClick('Work')}
                     >
@@ -64,7 +64,7 @@ const LeftSidebar = () => {
                         Work
                     </li>
                     <li
-                        className={` w-[250px] h-[30px] flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:bg-[#2c2c2c] ${selectedFolder === 'Travel' ? 'bg-[#312EB5]' : ''
+                        className={` w-[250px] h-[30px] flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:text-[#2c2c2c] ${selectedFolder === 'Travel' ? 'text-[#312EB5]' : ''
                             }`}
                         onClick={() => onFolderClick('Travel')}
                     >
@@ -72,7 +72,7 @@ const LeftSidebar = () => {
                         Travel
                     </li>
                     <li
-                        className={` w-[250px] h-[30px] flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:bg-[#2c2c2c] ${selectedFolder === 'Events' ? 'bg-[#312EB5]' : ''
+                        className={` w-[250px] h-[30px] flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:text-[#2c2c2c] ${selectedFolder === 'Events' ? 'text-[#312EB5]' : ''
                             }`}
                         onClick={() => onFolderClick('Events')}
                     >
@@ -80,7 +80,7 @@ const LeftSidebar = () => {
                         Events
                     </li>
                     <li
-                        className={`w-[250px] h-[30px] flex items-center mb-4  cursor-pointer transition-colors duration-300 hover:bg-[#2c2c2c] ${selectedFolder === 'Finances' ? 'bg-[#312EB5]' : ''
+                        className={`w-[250px] h-[30px] flex items-center mb-4  cursor-pointer transition-colors duration-300 hover:text-[#2c2c2c] ${selectedFolder === 'Finances' ? 'text-[#312EB5]' : ''
                             }`}
                         onClick={() => onFolderClick('Finances')}
                     >
@@ -92,11 +92,11 @@ const LeftSidebar = () => {
             <div className="mb-4 mt-10 p-2">
                 <div className="text-[#737373] font-bold mb-4">More</div>
                 <ul className="font-source-sans-pro text-[#737373] text-sm font-bold group">
-                    <li className={`w-[250px] h-[30px] flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:bg-[#2c2c2c] ${showFavorites ? 'bg-[#312EB5]' : ''}`} onClick={() => onFolderClick('Favourites')}>
+                    <li className={`w-[250px] h-[30px] flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:text-[#2c2c2c] ${showFavorites ? 'text-[#312EB5]' : ''}`} onClick={() => onFolderClick('Favourites')}>
                         <img src={FavouritesIcon} alt="Favourites" className="w-4 h-4 mr-2" />
                         Favourites
                     </li>
-                    <li className={`w-[250px] h-[30px] flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:bg-[#2c2c2c] ${showDeleted ? 'bg-[#312EB5]' : ''}`} onClick={() => onFolderClick('Trash')}>
+                    <li className={`w-[250px] h-[30px] flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:text-[#2c2c2c] ${showDeleted ? 'text-[#312EB5]' : ''}`} onClick={() => onFolderClick('Trash')}>
                         <img src={DeletedIcon} alt="Deleted" className="w-4 h-4 mr-2" />
                         Trash
                     </li>
