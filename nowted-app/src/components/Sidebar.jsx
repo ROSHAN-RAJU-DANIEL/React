@@ -27,8 +27,11 @@ const Sidebar = () => {
                                 className="cursor-pointer"
                             >
                                 <div className={`h-24 p-4 text-white text-center mt-8 mx-4 ${note.id === selectedNoteItem?.id ? 'bg-[#312EB5] text-white' : 'bg-[#262626]'}`}>
-                                    <div className="mb-2 font-source-sans-pro text-md">{note.title}</div>
-                                    <div className="text-sm truncate text-gray-400">{new Date(note.updatedAt).toLocaleDateString()}  {note.content}</div>
+                                    <div className="mb-2 font-source-sans-pro text-md font-bold">{note.title}</div>
+                                    <div className="font-source-sans-pro text-sm text-gray-400 truncate">
+                                        <span className="mr-2">{new Date(note.updatedAt).toLocaleDateString()}</span>
+                                        {note.content}
+                                    </div>
                                 </div>
                             </div>
                         ))}

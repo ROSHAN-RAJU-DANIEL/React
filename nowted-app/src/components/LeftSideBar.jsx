@@ -45,8 +45,8 @@ const LeftSidebar = () => {
             <NewNoteIcon onClick={() => handleNewNoteClick()} />
             {folderMessage && <div className=" mt-2 ml-2 text-sm text-red-400">{folderMessage}</div>}
             <div className="mb-4 mt-10 p-2">
-                <div className="text-[#737373]  font-bold text-base mb-6">Folders</div>
-                <ul className="font-source-sans-pro text-[#737373] text-sm font-bold cursor-pointer">
+                <div className="text-[#737373]  font-bold text-sm mb-6">Folders</div>
+                <ul className="font-source-sans-pro text-[#737373] text-base font-bold cursor-pointer">
                     <li
                         className={`w-[250px] h-[30px] flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:text-[#2c2c2c] ${selectedFolder === 'Personal' ? 'text-[#312EB5]' : ''
                             }`}
@@ -90,8 +90,8 @@ const LeftSidebar = () => {
                 </ul>
             </div>
             <div className="mb-4 mt-10 p-2">
-                <div className="text-[#737373] font-bold mb-4">More</div>
-                <ul className="font-source-sans-pro text-[#737373] text-sm font-bold group">
+                <div className="text-[#737373]  font-bold text-sm mb-6">More</div>
+                <ul className="font-source-sans-pro text-[#737373] text-base font-bold group">
                     <li className={`w-[250px] h-[30px] flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:text-[#2c2c2c] ${showFavorites ? 'text-[#312EB5]' : ''}`} onClick={() => onFolderClick('Favourites')}>
                         <img src={FavouritesIcon} alt="Favourites" className="w-4 h-4 mr-2" />
                         Favourites
