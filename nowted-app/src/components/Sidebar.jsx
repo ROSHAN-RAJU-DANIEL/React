@@ -3,6 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedNoteItem } from '../redux/slice'
 
 
+
+const stripHtmlTags = (html) => {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    return doc.body.textContent || "";
+};
+
+
 const Sidebar = () => {
     const dispatch = useDispatch();
     const handleNoteSelect = (note) => {
@@ -30,7 +37,7 @@ const Sidebar = () => {
                                     <div className="mb-2 font-source-sans-pro text-md font-bold">{note.title}</div>
                                     <div className="font-source-sans-pro text-sm text-gray-400 truncate">
                                         <span className="mr-2">{new Date(note.updatedAt).toLocaleDateString()}</span>
-                                        {note.content}
+                                        {stripHtmlTags(note.content)}
                                     </div>
                                 </div>
                             </div>

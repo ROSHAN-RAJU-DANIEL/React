@@ -13,7 +13,6 @@ import {
 } from '../redux/actions'
 
 const NoteDisplay = () => {
-
     const dispatch = useDispatch();
     const creatingNote = useSelector((state) => state.notes.creatingNote);
     const selectedNote = useSelector((state) => state.notes.selectedNoteItem);
@@ -21,28 +20,20 @@ const NoteDisplay = () => {
     const showDeleted = useSelector((state) => state.notes.showDeleted);
     const selectedFolder = useSelector((state) => state.notes.selectedFolder);
 
-
-    const onCreateNote = (newNote) => {
-        dispatch(createNoteAsync(newNote));
+    const onCreateOrUpdateNote = (newNote) => {
+        const action = creatingNote ? createNoteAsync(newNote) : updateNoteAsync(newNote);
+        dispatch(action).then(() => dispatch(fetchNotes({ showFavorites, showDeleted, selectedFolder })));
         dispatch(setCreatingNote(false));
-        dispatch(fetchNotes({ showFavorites, showDeleted, selectedFolder }));
-    };
-
-    const onEditNote = (updatedNote) => {
-        dispatch(updateNoteAsync(updatedNote));
         dispatch(setSelectedNoteItem(null));
-        dispatch(fetchNotes({ showFavorites, showDeleted, selectedFolder }));
     };
 
     const handleDelete = () => {
-        dispatch(deleteNoteAsync(selectedNote.id));
-        dispatch(setSelectedNoteItem(null));
+        dispatch(deleteNoteAsync(selectedNote.id)).then(() => dispatch(setSelectedNoteItem(null)));
     };
 
     const handleRestore = () => {
-        dispatch(deleteNoteAsync(selectedNote.id));
+        dispatch(deleteNoteAsync(selectedNote.id)).then(() => dispatch(fetchNotes({ showFavorites, showDeleted, selectedFolder })));
         dispatch(setSelectedNoteItem(null));
-        dispatch(fetchNotes({ showFavorites, showDeleted, selectedFolder }));
     };
 
     const onCancel = () => {
@@ -52,8 +43,8 @@ const NoteDisplay = () => {
     };
 
     const handleFavourite = () => {
-        dispatch(toggleFavouriteAsync(selectedNote.id))
-    }
+        dispatch(toggleFavouriteAsync(selectedNote.id));
+    };
 
     return (
         <div className="flex-1 h-screen p-50 bg-[#0a0a0a] relative">
@@ -70,10 +61,8 @@ const NoteDisplay = () => {
                         </div>
                     ) : (
                         <NoteForm
-                            onSave={(newNote) => {
-                                creatingNote ? onCreateNote(newNote) : onEditNote(newNote);
-                            }}
-                            onCancel={() => onCancel()}
+                            onSave={onCreateOrUpdateNote}
+                            onCancel={onCancel}
                             onDelete={handleDelete}
                             onFavourite={handleFavourite}
                         />

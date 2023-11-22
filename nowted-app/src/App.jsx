@@ -11,11 +11,12 @@ function App() {
   const showFavorites = useSelector((state) => state.notes.showFavorites);
   const showDeleted = useSelector((state) => state.notes.showDeleted);
   const selectedFolder = useSelector((state) => state.notes.selectedFolder);
+  const searchText = useSelector((state) => state.notes.searchText);
 
 
   useEffect(() => {
-    dispatch(fetchNotes({ showFavorites, showDeleted, selectedFolder }));
-  }, [showFavorites, showDeleted, selectedFolder, dispatch]);
+    dispatch(fetchNotes({ showFavorites, showDeleted, selectedFolder, searchText }));
+  }, [showFavorites, showDeleted, selectedFolder, searchText, dispatch]);
 
   return (
     <div className="flex gap-30">

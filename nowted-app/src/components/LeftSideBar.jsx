@@ -6,13 +6,15 @@ import SearchIcon from "../assets/SearchIcon.svg";
 import Folder from "../assets/Folder.svg"
 import NewNoteIcon from "./NewNoteIcon";
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedNoteItem, setCreatingNote, setView } from '../redux/slice'
+import { setSelectedNoteItem, setCreatingNote, setView, setSearchText } from '../redux/slice'
 
 const LeftSidebar = () => {
     const dispatch = useDispatch();
     const showFavorites = useSelector((state) => state.notes.showFavorites);
     const showDeleted = useSelector((state) => state.notes.showDeleted);
     const selectedFolder = useSelector((state) => state.notes.selectedFolder);
+    const searchText = useSelector((state) => state.notes.searchText);
+    const [searchMode, setSearchMode] = useState(false);
 
     const [folderMessage, setFolderMessage] = useState("");
 
@@ -37,12 +39,40 @@ const LeftSidebar = () => {
         <div className="w-[250px] h-screen bg-[#0a0a0a] p-4">
             <div className="flex items-center justify-between mt-2 mb-6">
                 <div className="flex items-center">
-                    <span className="text-white text-xl font-kaushan mr-2 animate-bounce">Nowted</span>
+                    <span className="text-white text-xl font-kaushan mr-2">Nowted</span>
                     <img src={AppLogo} alt="Nowted Logo" className="w-3 h-3 mr-2 mb-3" />
                 </div>
-                <img src={SearchIcon} alt="search" className="w-4 h-4 mr-2" />
+                <img
+                    src={SearchIcon}
+                    alt="search"
+                    className="w-4 h-4 mr-2 cursor-pointer"
+                    onClick={() => setSearchMode(true)}
+                />
             </div>
-            <NewNoteIcon onClick={() => handleNewNoteClick()} />
+            <>
+                {searchMode ? (
+                    <div>
+                        <input
+                            type="text"
+                            placeholder="Search..."
+                            value={searchText}
+                            onChange={(e) => dispatch(setSearchText(e.target.value))}
+                            className="w-40 p-2 bg-[#0a0a0a] text-white text-sm border-b-2 border-[#312EB5] focus:outline-none focus:border-[#312EB5]"
+                        />
+                        <button
+                            onClick={() => {
+                                setSearchMode(false);
+                                dispatch(setSearchText(""));
+                            }}
+                            className="text-white text-xs ml-2 cursor-pointer"
+                        >
+                            X
+                        </button>
+                    </div>
+                ) : (
+                    <NewNoteIcon onClick={() => handleNewNoteClick()} />
+                )}
+            </>
             {folderMessage && <div className=" mt-2 ml-2 text-sm text-red-400">{folderMessage}</div>}
             <div className="mb-4 mt-10 p-2">
                 <div className="text-[#737373]  font-bold text-sm mb-6">Folders</div>

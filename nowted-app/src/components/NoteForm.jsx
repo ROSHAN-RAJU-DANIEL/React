@@ -1,15 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import DateIcon from "../assets/DateIcon.svg"
-import Bold from "../assets/Bold.svg"
-import Italic from "../assets/Italic.svg"
-import Underline from "../assets/Underline.svg"
-import Attach from "../assets/Attach.svg"
-import ImageIcon from "../assets/Image.svg"
-import ArrowDown from "../assets/ArrowDown.svg"
 import FavouritesIcon from "../assets/Favourite.svg";
 import DeletedIcon from "../assets/Trash.svg";
 import Folder from "../assets/Folder.svg"
+import 'react-quill/dist/quill.snow.css';
+import ReactQuill from 'react-quill';
 
 const NoteForm = ({ onSave, onCancel, onDelete, onFavourite }) => {
     const [title, setTitle] = useState('');
@@ -25,7 +21,7 @@ const NoteForm = ({ onSave, onCancel, onDelete, onFavourite }) => {
         if (initialNote) {
             setTitle(initialNote.title);
             setContent(initialNote.content);
-            setFolder(initialNote.folder)
+            setFolder(initialNote.folder);
         } else {
             setTitle('');
             setContent('');
@@ -48,7 +44,12 @@ const NoteForm = ({ onSave, onCancel, onDelete, onFavourite }) => {
 
     const handleSave = () => {
         if (title && content) {
-            onSave({ title, content, folder: initialNote ? initialNote.folder : selectedFolder, id: initialNote ? initialNote.id : null });
+            onSave({
+                title,
+                content,
+                folder: initialNote ? initialNote.folder : selectedFolder,
+                id: initialNote ? initialNote.id : null,
+            });
             setTitle('');
             setContent('');
             onCancel();
@@ -59,8 +60,29 @@ const NoteForm = ({ onSave, onCancel, onDelete, onFavourite }) => {
         setShowDropdown(!showDropdown);
     };
 
+    const renderDateAndFolder = () => {
+        const dateToDisplay = initialNote ? new Date(initialNote.updatedAt).toLocaleDateString() : new Date().toLocaleDateString();
+        const folderToDisplay = initialNote ? initialNote.folder : selectedFolder;
+
+        return (
+            <>
+                <div className="mb-4 ml-2 flex items-center">
+                    <span className="text-white text-sm mr-2">Date</span>
+                    <img src={DateIcon} alt="Calendar Icon" className="w-4 h-4 mr-2" />
+                    <span className="text-white text-sm ml-14">{dateToDisplay}</span>
+                </div>
+                <hr className="mb-2 border-t border-white" />
+                <div className="mb-4 ml-2 flex items-center">
+                    <span className="text-white text-sm mr-2">Folder</span>
+                    <img src={Folder} alt="Folder Icon" className="w-4 h-4 mr-2" />
+                    <span className="text-white text-sm ml-14">{folderToDisplay}</span>
+                </div>
+            </>
+        );
+    };
+
     return (
-        <div className="w-full h-full mx-auto p-4 bg-[#0a0a0a]">
+        <div className="w-full h-full mx-auto p-4 bg-[#0a0a0a] relative">
             <div className="mb-4 flex items-center">
                 <input
                     type="text"
@@ -108,47 +130,27 @@ const NoteForm = ({ onSave, onCancel, onDelete, onFavourite }) => {
                     </div>
                 )}
             </div>
-            {initialNote && (
-                <>
-                    <div className="mb-4 ml-2 flex items-center">
-                        <span className="text-white text-sm mr-2">Date</span>
-                        <img src={DateIcon} alt="Calendar Icon" className="w-4 h-4 mr-2" />
-                        <span className="text-white text-sm ml-14">
-                            {new Date(initialNote.updatedAt).toLocaleString()}
-                        </span>
-                    </div>
-                    <hr className="mb-2 border-t border-[#4b5563]" />
-                    <div className="mb-4 ml-2 flex items-center">
-                        <span className="text-white text-sm mr-2">Folder</span>
-                        <img src={Folder} alt="Calendar Icon" className="w-4 h-4 mr-2" />
-                        <span className="text-white text-sm ml-14">
-                            {initialNote.folder}
-                        </span>
-                    </div>
-                </>
-            )}
-            <hr className="mb-2 border-t border-[#4b5563]" />
-            <div className="mb-2 flex items-center space-x-6">
-                <span className="text-white text-sm ml-2 mr-8">Paragraph</span>
-                <img src={ArrowDown} alt="ArrowDown" className="w-4 h-4" />
-                <span className="text-white text-sm ml-2">16</span>
-                <img src={ArrowDown} alt="ArrowDown" className="w-4 h-4" />
-                <img src={Italic} alt="Italic" className="w-4 h-4" />
-                <img src={Bold} alt="Bold" className="w-4 h-4" />
-                <img src={Underline} alt="Underline" className="w-4 h-4" />
-                <img src={ImageIcon} alt="ImageIcon" className="w-4 h-4" />
-                <img src={Attach} alt="Attach" className="w-4 h-4 mr-4" />
-            </div>
-            <hr className="mb-4 border-t border-[#4b5563]" />
-            <div className="mb-4">
-                <textarea
-                    placeholder="Content"
-                    className="w-full h-[460px] p-2 rounded-md bg-[#0a0a0a] text-white"
+            {renderDateAndFolder()}
+            <div>
+                <ReactQuill
+                    theme="snow"
                     value={content}
-                    onChange={(e) => setContent(e.target.value)}
+                    onChange={(value, delta, source, editor) => {
+                        setContent(value);
+                    }}
+                    placeholder="Write your content here..."
+                    modules={{
+                        toolbar: [
+                            [{ 'header': [1, 2, false] }],
+                            ['bold', 'italic', 'underline'],
+                            [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+                            ['link', 'image', 'video']
+                        ],
+                    }}
+                    className="text-white h-[480px]"
                 />
             </div>
-            <div className="flex justify-end">
+            <div className="absolute bottom-4 right-4">
                 <span onClick={handleSave} className="text-gray-500 cursor-pointer mr-2">
                     Save
                 </span>
