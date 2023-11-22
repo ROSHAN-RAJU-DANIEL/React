@@ -1,13 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { createNote, getNotes, updateNote, deleteNote, toggleFavourite, getFavoriteNotes, getDeletedNotes, getFolderNotes } from '../service/ApiService';
+import { createNote, updateNote, deleteNote, toggleFavourite, getFavoriteNotes, getDeletedNotes, getFolderNotes } from '../service/ApiService';
 
-export const fetchNotes = createAsyncThunk('notes/fetchNotes', async ({ showFavorites, showDeleted, selectedFolder }) => {
+export const fetchNotes = createAsyncThunk('notes/fetchNotes', async ({ showFavorites, showDeleted, selectedFolder, searchText = "" }) => {
     if (showFavorites) {
-        return getFavoriteNotes();
+        return getFavoriteNotes(searchText);
     } else if (showDeleted) {
-        return getDeletedNotes();
+        return getDeletedNotes(searchText);
     } else {
-        return getFolderNotes(selectedFolder);
+        return getFolderNotes(selectedFolder, searchText);
     }
 });
 

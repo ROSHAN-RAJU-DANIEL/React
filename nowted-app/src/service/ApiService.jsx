@@ -52,9 +52,9 @@ export const toggleFavourite = async (noteId) => {
     }
 };
 
-export const getFavoriteNotes = async () => {
+export const getFavoriteNotes = async (title) => {
     try {
-        const response = await axios.get(`${API_URL}/notes/favorites`);
+        const response = await axios.get(`${API_URL}/notes/favorites?title=${title}`);
         return response.data;
     } catch (error) {
         console.error('Error getting notes:', error);
@@ -62,9 +62,9 @@ export const getFavoriteNotes = async () => {
     }
 };
 
-export const getDeletedNotes = async () => {
+export const getDeletedNotes = async (title) => {
     try {
-        const response = await axios.get(`${API_URL}/notes/deleted`);
+        const response = await axios.get(`${API_URL}/notes/deleted?title=${title}`);
         return response.data;
     } catch (error) {
         console.error('Error getting notes:', error);
@@ -72,13 +72,12 @@ export const getDeletedNotes = async () => {
     }
 };
 
-export const getFolderNotes = async (folder) => {
+export const getFolderNotes = async (folder, title) => {
     try {
-        const response = await axios.get(`${API_URL}/notes/byFolder/${folder}`);
+        const response = await axios.get(`${API_URL}/notes/byFolder/${folder}?title=${title}`);
         return response.data;
     } catch (error) {
         console.error('Error getting notes:', error);
         throw error;
     }
 };
-
