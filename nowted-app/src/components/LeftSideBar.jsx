@@ -36,7 +36,7 @@ const LeftSidebar = () => {
     };
 
     return (
-        <div className="w-[250px] h-screen bg-[#0a0a0a] p-4">
+        <div className="w-[250px] h-100% bg-[#0a0a0a] p-4">
             <div className="flex items-center justify-between mt-2 mb-6">
                 <div className="flex items-center">
                     <span className="text-white text-xl font-kaushan mr-2">Nowted</span>

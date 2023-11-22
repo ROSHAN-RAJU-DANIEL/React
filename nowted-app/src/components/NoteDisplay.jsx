@@ -47,7 +47,7 @@ const NoteDisplay = () => {
     };
 
     return (
-        <div className="flex-1 h-screen p-50 bg-[#0a0a0a] relative">
+        <div className="flex-1 h-100% p-50 bg-[#0a0a0a] relative">
             {creatingNote || selectedNote ? (
                 <div className="flex items-center justify-center h-full">
                     {selectedNote && selectedNote.deleted ? (

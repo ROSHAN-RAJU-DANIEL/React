@@ -22,7 +22,7 @@ const Sidebar = () => {
     const selectedFolder = useSelector((state) => state.notes.selectedFolder);
 
     return (
-        <div className="w-[350px] h-screen bg-[#171717] p-30" style={{ overflowY: sortedNotes.length > 6 ? "scroll" : "hidden", overflowX: "hidden" }}>
+        <div className="w-[350px] h-100% bg-[#171717] p-30" style={{ overflowY: sortedNotes.length > 6 ? "scroll" : "hidden", overflowX: "hidden" }}>
             <div className="h-screen">
                 <span className="p-4 font-source-sans-pro text-[#737373] text-xl font-bold text-center mt-4">{selectedFolder}</span>
                 {sortedNotes.length > 0 && (
