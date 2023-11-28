@@ -3,7 +3,8 @@ import FavouritesIcon from "../assets/Favourite.svg";
 import DeletedIcon from "../assets/Trash.svg";
 import AppLogo from "../assets/AppLogo.svg";
 import SearchIcon from "../assets/SearchIcon.svg";
-import Folder from "../assets/Folder.svg"
+import Folder from "../assets/Folder.svg";
+import MainFolder from "../assets/MainFolder.svg";
 import NewNoteIcon from "./NewNoteIcon";
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedNoteItem, setCreatingNote, setView, setSearchText } from '../redux/slice'
@@ -74,8 +75,11 @@ const LeftSidebar = () => {
                 )}
             </>
             {folderMessage && <div className=" mt-2 ml-2 text-sm text-red-400">{folderMessage}</div>}
-            <div className="mb-4 mt-10 p-2">
-                <div className="text-[#737373]  font-bold text-sm mb-6">Folders</div>
+            <div className="mb-4 mt-12 p-2">
+                <div className="flex items-center justify-between text-[#737373] font-bold text-sm mb-6">
+                    Folders
+                    <img src={MainFolder} alt="MainFolder" className="w-4 h-4" />
+                </div>
                 <ul className="font-source-sans-pro text-[#737373] text-base font-bold cursor-pointer">
                     <li
                         className={`w-[250px] h-[30px] flex items-center mb-4 cursor-pointer transition-colors duration-300 hover:text-[#2c2c2c] ${selectedFolder === 'Personal' ? 'text-[#312EB5]' : ''

@@ -71,7 +71,7 @@ const NoteForm = ({ onSave, onCancel, onDelete, onFavourite }) => {
                     <img src={DateIcon} alt="Calendar Icon" className="w-4 h-4 mr-2" />
                     <span className="text-white text-sm ml-14">{dateToDisplay}</span>
                 </div>
-                <hr className="mb-2 border-t border-white" />
+                <hr className="mb-2 border-t border-gray-300" />
                 <div className="mb-4 ml-2 flex items-center">
                     <span className="text-white text-sm mr-2">Folder</span>
                     <img src={Folder} alt="Folder Icon" className="w-4 h-4 mr-2" />
